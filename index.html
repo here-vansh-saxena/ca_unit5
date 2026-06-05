@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Accounting — Unit 5 | B.Com Hons SRCC · DU</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#06090f;--bg2:#0a0f1a;--bg3:#0f1626;--bg4:#141d30;--gold:#c9943a;--gl:#e4b84e;--gb:rgba(201,148,58,0.12);--gbd:rgba(201,148,58,0.25);--tx:#edeae0;--tx2:#a8b3c8;--tx3:#5e6e88;--br:rgba(255,255,255,0.07);--grn:#52b788;--blu:#5b8dee;--red:#e05252;--pur:#a78bde;--r:10px;--r2:6px;--sb:268px;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-size:15px;line-height:1.75;overflow-x:hidden}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gl),#fff8dc);z-index:9999;box-shadow:0 0 8px var(--gold);transition:width .08s linear}
+
+/* SIDEBAR */
+#sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb);background:var(--bg2);border-right:1px solid var(--br);display:flex;flex-direction:column;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sb-head{padding:20px 18px 16px;border-bottom:1px solid var(--br);flex-shrink:0}
+.sb-logo{font-family:var(--fd);font-size:19px;font-weight:600;color:var(--gl);letter-spacing:.3px;line-height:1.2}
+.sb-sub{font-size:10.5px;color:var(--tx3);margin-top:3px;letter-spacing:.8px;text-transform:uppercase}
+.sb-srch{padding:10px 14px;border-bottom:1px solid var(--br);flex-shrink:0;position:relative}
+.sb-srch input{width:100%;background:var(--bg3);border:1px solid var(--br);color:var(--tx);font-family:var(--fb);font-size:13px;padding:7px 10px 7px 30px;border-radius:var(--r2);outline:none;transition:border .2s}
+.sb-srch input:focus{border-color:var(--gbd)}
+.sb-srch::before{content:'⌕';position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:15px;pointer-events:none}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0 20px}
+.sb-nav::-webkit-scrollbar{width:3px}
+.sb-nav::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.ng{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--tx3);padding:14px 18px 4px;user-select:none}
+.nl{display:flex;align-items:center;gap:8px;padding:7px 18px;color:var(--tx2);font-size:12.5px;text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nl:hover{color:var(--tx);background:rgba(255,255,255,0.025)}
+.nl.active{color:var(--gl);border-left-color:var(--gold);background:var(--gb)}
+.nl .n{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:4px;background:var(--bg4);font-size:9.5px;font-weight:700;color:var(--tx3);flex-shrink:0}
+.nl.active .n{background:var(--gb);color:var(--gold)}
+
+/* HAMBURGER */
+#hbg{display:none;position:fixed;top:14px;left:14px;width:38px;height:38px;background:var(--bg3);border:1px solid var(--br);border-radius:var(--r2);cursor:pointer;z-index:201;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+#hbg span{display:block;width:18px;height:2px;background:var(--tx2);border-radius:1px}
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:199}
+
+/* MAIN */
+#main{margin-left:var(--sb);min-height:100vh}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--bg2) 0%,#0c1422 60%,var(--bg) 100%);border-bottom:1px solid var(--br);padding:52px 50px 38px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(201,148,58,.13) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,148,58,.4),transparent)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);background:var(--gb);border:1px solid var(--gbd);padding:4px 12px;border-radius:100px;margin-bottom:14px}
+.hero h1{font-family:var(--fd);font-size:44px;font-weight:600;line-height:1.15;color:var(--tx);margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--gl)}
+.hero-chips{display:flex;gap:16px;flex-wrap:wrap;color:var(--tx3);font-size:12.5px}
+.hero-chips span{display:flex;align-items:center;gap:5px}
+
+/* CONTENT */
+.cw{max-width:880px;margin:0 auto;padding:38px 48px 80px}
+
+/* SECTION */
+.sec{margin-bottom:38px;scroll-margin-top:56px}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--br)}
+.sn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--gb);border:1px solid var(--gbd);font-family:var(--fd);font-size:16px;font-weight:700;color:var(--gl);flex-shrink:0}
+.st{font-family:var(--fd);font-size:26px;font-weight:600;color:var(--tx);line-height:1.2}
+.badge{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-left:auto;white-space:nowrap;flex-shrink:0}
+.bn{background:rgba(91,141,238,.15);color:var(--blu);border:1px solid rgba(91,141,238,.3)}
+.be{background:rgba(82,183,136,.15);color:var(--grn);border:1px solid rgba(82,183,136,.3)}
+
+/* DEF BLOCK */
+.def{background:var(--bg3);border:1px solid var(--br);border-left:3px solid var(--gold);border-radius:var(--r);padding:15px 18px;margin-bottom:18px}
+.def-l{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.def p{color:var(--tx2);font-size:14px}
+
+/* SUBHEADINGS */
+h3.sh2{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--tx);margin:22px 0 12px;padding-left:11px;border-left:3px solid var(--gold)}
+h4.sh3{font-size:13.5px;font-weight:600;color:var(--gl);margin:16px 0 8px;letter-spacing:.3px}
+
+/* POINT LIST */
+.pl{list-style:none;margin-bottom:16px}
+.pl li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--br);font-size:13.5px}
+.pl li:last-child{border-bottom:none}
+.pn{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:4px;background:var(--gb);border:1px solid var(--gbd);font-size:10px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:2px}
+
+/* BULLET LIST */
+.bl{list-style:none;margin-bottom:14px}
+.bl li{padding:4px 0;font-size:13.5px;color:var(--tx2);display:flex;gap:10px;align-items:flex-start}
+.bl li::before{content:'◆';color:var(--gold);font-size:7px;margin-top:7px;flex-shrink:0}
+
+/* CARDS */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:18px}
+.ic{background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);padding:15px;transition:border-color .2s,transform .2s}
+.ic:hover{border-color:var(--gbd);transform:translateY(-2px)}
+.cn{font-family:var(--fd);font-size:26px;font-weight:700;line-height:1;margin-bottom:7px;background:linear-gradient(135deg,var(--gold),var(--gl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ct{font-size:13.5px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--tx2);line-height:1.55}
+
+/* FORMULA */
+.fml{background:var(--bg4);border:1px solid rgba(167,139,222,.4);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;text-align:center}
+.fml-l{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px}
+.fml-v{font-size:16px;font-weight:700;color:var(--pur);letter-spacing:.3px}
+
+/* CALLOUTS */
+.co{border-radius:var(--r);padding:13px 15px;margin-bottom:14px;font-size:13.5px;display:flex;gap:11px;align-items:flex-start}
+.co-ico{font-size:17px;flex-shrink:0;margin-top:1px}
+.cg2{background:rgba(201,148,58,.1);border:1px solid rgba(201,148,58,.25)}
+.cgr{background:rgba(82,183,136,.1);border:1px solid rgba(82,183,136,.25)}
+.cr{background:rgba(224,82,82,.1);border:1px solid rgba(224,82,82,.25)}
+.cb{background:rgba(91,141,238,.1);border:1px solid rgba(91,141,238,.25)}
+
+/* INCLUDE/EXCLUDE */
+.ieg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.ieb{background:var(--bg3);border-radius:var(--r);padding:13px;list-style:none}
+.ieb.inc{border:1px solid rgba(82,183,136,.3)}
+.ieb.exc{border:1px solid rgba(224,82,82,.3)}
+.iel{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.ieb.inc .iel{color:var(--grn)}
+.ieb.exc .iel{color:var(--red)}
+.ieb li{font-size:12.5px;color:var(--tx2);padding:3px 0}
+.ieb.inc li::before{content:'✓ ';color:var(--grn)}
+.ieb.exc li::before{content:'✗ ';color:var(--red)}
+
+/* ACCORDION */
+.acc{margin-bottom:8px}
+.acc-h{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);cursor:pointer;transition:all .15s;user-select:none}
+.acc-h:hover{border-color:var(--gbd);background:var(--bg4)}
+.acc-h.on{border-color:var(--gbd);background:var(--gb);border-radius:var(--r) var(--r) 0 0}
+.acc-t{font-size:13.5px;font-weight:500;color:var(--tx);display:flex;align-items:center;gap:9px}
+.acc-i{color:var(--gold);font-size:15px;transition:transform .2s}
+.acc-h.on .acc-i{transform:rotate(180deg)}
+.acc-b{display:none;padding:15px;background:var(--bg3);border:1px solid var(--gbd);border-top:none;border-radius:0 0 var(--r) var(--r)}
+.acc-b.on{display:block}
+
+/* TABS */
+.tabs{margin-bottom:16px}
+.tnav{display:flex;gap:2px;background:var(--bg3);border-radius:var(--r) var(--r) 0 0;border:1px solid var(--br);border-bottom:none;padding:5px 5px 0}
+.tbtn{padding:8px 15px;font-size:12.5px;font-weight:500;color:var(--tx3);background:transparent;border:none;border-radius:5px 5px 0 0;cursor:pointer;transition:all .15s;font-family:var(--fb)}
+.tbtn:hover{color:var(--tx)}
+.tbtn.on{color:var(--gl);background:var(--bg4)}
+.tpan{display:none;padding:16px;background:var(--bg3);border:1px solid var(--br);border-radius:0 var(--r) var(--r) var(--r)}
+.tpan.on{display:block}
+
+/* TABLE */
+.tw{overflow-x:auto;margin-bottom:16px;border-radius:var(--r);border:1px solid var(--br)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--bg4);color:var(--gl);padding:10px 13px;text-align:left;font-weight:600;border-bottom:1px solid var(--gbd);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--br);transition:background .15s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody td{padding:9px 13px;color:var(--tx2);vertical-align:top}
+tbody td:first-child{color:var(--tx);font-weight:500;white-space:nowrap}
+tbody tr:last-child{border-bottom:none}
+
+/* DIVIDER */
+.dv{height:1px;margin:30px 0;background:linear-gradient(90deg,transparent,var(--br),transparent)}
+.dv-gold{background:linear-gradient(90deg,transparent,rgba(201,148,58,.3),transparent)}
+
+/* EXAM SECTION HEADER */
+.exh{display:flex;align-items:center;gap:14px;padding:20px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--gbd);border-radius:var(--r);margin-bottom:22px;position:relative;overflow:hidden}
+.exh::after{content:'';position:absolute;right:0;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,var(--gb));pointer-events:none}
+.exh-ico{width:46px;height:46px;border-radius:9px;background:var(--gb);border:1px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.exh h2{font-family:var(--fd);font-size:28px;font-weight:600;color:var(--tx)}
+.exh p{font-size:12px;color:var(--tx3);margin-top:3px}
+
+/* EXAM CARD */
+.ec{background:var(--bg2);border:1px solid var(--br);border-radius:var(--r);margin-bottom:22px;scroll-margin-top:56px;overflow:hidden;transition:border-color .2s}
+.ec:hover{border-color:var(--gbd)}
+.ec-h{display:flex;align-items:flex-start;gap:13px;padding:18px;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .2s}
+.ec-h.on{border-bottom-color:var(--br)}
+.eq{display:flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:8px;background:var(--gb);border:1px solid var(--gbd);font-family:var(--fd);font-size:16px;font-weight:700;color:var(--gl);flex-shrink:0}
+.et{font-size:15px;font-weight:600;color:var(--tx);flex:1;line-height:1.4}
+.es{font-size:12px;color:var(--tx3);margin-top:3px}
+.etog{color:var(--tx3);font-size:17px;transition:transform .25s;flex-shrink:0;margin-top:2px}
+.ec-h.on .etog{transform:rotate(180deg);color:var(--gold)}
+.eb{display:none;padding:22px}
+.eb.on{display:block}
+
+/* THREE PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.pil{background:var(--bg3);border-radius:var(--r);padding:16px;text-align:center}
+.pil-ico{font-size:28px;margin-bottom:8px}
+.pil-t{font-size:14px;font-weight:700;margin-bottom:5px}
+.pil-d{font-size:12px;color:var(--tx2);line-height:1.5}
+.pil.profit{border:1px solid rgba(201,148,58,.35)}
+.pil.profit .pil-t{color:var(--gl)}
+.pil.people{border:1px solid rgba(91,141,238,.35)}
+.pil.people .pil-t{color:var(--blu)}
+.pil.planet{border:1px solid rgba(82,183,136,.35)}
+.pil.planet .pil-t{color:var(--grn)}
+
+/* QUICK REF PILL */
+.qr{display:inline-flex;align-items:center;gap:6px;background:var(--bg4);border:1px solid var(--br);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--tx2);margin:3px}
+.qr strong{color:var(--gl)}
+
+/* TESTS GRID */
+.tg3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.tcard{background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);padding:14px;text-align:center;transition:border-color .2s}
+.tcard:hover{border-color:var(--gbd)}
+.tc-n{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.tc-t{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px}
+.tc-d{font-size:12px;color:var(--tx2)}
+.tc-v{font-size:18px;font-weight:700;color:var(--gl);margin-top:6px}
+
+/* FAB */
+#fab{position:fixed;bottom:28px;right:28px;display:flex;flex-direction:column;gap:9px;z-index:100}
+.fb{width:44px;height:44px;border-radius:50%;background:var(--bg3);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx2);font-size:17px;transition:all .2s;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.fb:hover{background:var(--gb);border-color:var(--gbd);color:var(--gold);transform:scale(1.08)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #sb{transform:translateX(-100%)}
+  #sb.on{transform:translateX(0)}
+  #ov.on{display:block}
+  #hbg{display:flex}
+  #main{margin-left:0}
+  .hero{padding:58px 20px 28px}
+  .hero h1{font-size:30px}
+  .cw{padding:20px 18px 60px}
+  .cg,.pillars,.tg3,.ieg{grid-template-columns:1fr}
+  .hero-chips{gap:10px}
+}
+
+/* PRINT */
+@media print{
+  #sb,#prog,#fab,#hbg,#ov{display:none!important}
+  #main{margin-left:0!important}
+  .eb,.acc-b,.tpan{display:block!important}
+  body{background:#fff;color:#000}
+  .def,.ic,.co,.fml,.tcard,.ec{border:1px solid #ccc!important;background:#f9f9f9!important}
+  .tx2,.tx3{color:#444!important}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sec{animation:fadeUp .4s ease both}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- SIDEBAR -->
+<aside id="sb">
+  <div class="sb-head">
+    <div class="sb-logo">Corporate Accounting</div>
+    <div class="sb-sub">Unit 5 · B.Com Hons NEP · SRCC · DU</div>
+  </div>
+  <div class="sb-srch"><input type="text" id="si" placeholder="Search topics..."></div>
+  <nav class="sb-nav" id="sbn">
+    <div class="ng">📚 Unit 5 Notes</div>
+    <a class="nl" href="#s1"><span class="n">01</span>Corporate Financial Reporting</a>
+    <a class="nl" href="#s2"><span class="n">02</span>Annual Report</a>
+    <a class="nl" href="#s3"><span class="n">03</span>Board of Directors Report</a>
+    <a class="nl" href="#s4"><span class="n">04</span>XBRL Reporting</a>
+    <a class="nl" href="#s5"><span class="n">05</span>Notes to Account</a>
+    <a class="nl" href="#s6"><span class="n">06</span>Sustainability Reporting</a>
+    <a class="nl" href="#s7"><span class="n">07</span>Triple Bottom Line (TBL)</a>
+    <a class="nl" href="#s8"><span class="n">08</span>CSR Reporting</a>
+    <a class="nl" href="#s9"><span class="n">09</span>Segment Reporting (AS-17)</a>
+    <div class="ng">📝 Exam Questions</div>
+    <a class="nl" href="#q1"><span class="n">Q1</span>Securities Premium Reserve</a>
+    <a class="nl" href="#q2"><span class="n">Q2</span>Bonus vs Rights Shares</a>
+    <a class="nl" href="#q3"><span class="n">Q3</span>SEBI Bonus Guidelines</a>
+    <a class="nl" href="#q4"><span class="n">Q4</span>Redeemable Pref. Shares</a>
+    <a class="nl" href="#q5"><span class="n">Q5</span>Buy-back of Shares</a>
+    <a class="nl" href="#q6"><span class="n">Q6</span>Short Notes (4 topics)</a>
+    <a class="nl" href="#q7"><span class="n">Q7</span>FS vs Annual Report</a>
+  </nav>
+</aside>
+<div id="ov" onclick="cSB()"></div>
+<div id="hbg" onclick="tSB()"><span></span><span></span><span></span></div>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">⚡ Exam Ready · June 2026</div>
+  <h1>Unit 5 — <em>Corporate Financial</em><br>Reporting</h1>
+  <div class="hero-chips">
+    <span>📖 9 Topics</span>
+    <span>📝 7 Exam Questions</span>
+    <span>🎓 B.Com Hons NEP · DU</span>
+    <span>⏱ ~35 min read</span>
+    <span>🖨 Print-friendly</span>
+  </div>
+</div>
+
+<div class="cw">
+
+<!-- ── SECTION 1: CFR ── -->
+<div class="sec" id="s1">
+  <div class="sh"><div class="sn">1</div><div class="st">Corporate Financial Reporting</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>Corporate Financial Reporting refers to the process of <strong>communicating financial and non-financial information</strong> regarding the activities, performance and financial position of a company to its stakeholders through Annual Reports, Financial Statements and other disclosures. It acts as a <em>bridge</em> between the company and its stakeholders by providing relevant, reliable and timely information.</p></div>
+
+  <h3 class="sh2">Need & Objectives</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Provide Information for Decision Making</strong> — Financial reports help investors, creditors and other users make sound economic decisions.</div></li>
+    <li><span class="pn">2</span><div><strong>Ensure Accountability</strong> — Management is accountable to shareholders for the resources entrusted to it.</div></li>
+    <li><span class="pn">3</span><div><strong>Present True & Fair View</strong> — Report should fairly present the financial position and performance of the company.</div></li>
+    <li><span class="pn">4</span><div><strong>Facilitate Comparison</strong> — Users can compare performance across years and with other companies.</div></li>
+    <li><span class="pn">5</span><div><strong>Meet Legal Requirements</strong> — Companies must comply with Companies Act provisions and Accounting Standards.</div></li>
+    <li><span class="pn">6</span><div><strong>Enhance Transparency</strong> — Proper disclosure reduces information asymmetry and builds trust.</div></li>
+    <li><span class="pn">7</span><div><strong>Assist in Resource Allocation</strong> — Investors and lenders allocate resources efficiently on the basis of reported information.</div></li>
+  </ol>
+
+  <h3 class="sh2">Importance</h3>
+  <div class="cg">
+    <div class="ic"><div class="cn">01</div><div class="ct">Protect Investor Interest</div><div class="cd">Safeguards investor rights through reliable, timely disclosure.</div></div>
+    <div class="ic"><div class="cn">02</div><div class="ct">Improves Corporate Governance</div><div class="cd">Promotes accountability and transparency in management practices.</div></div>
+    <div class="ic"><div class="cn">03</div><div class="ct">Facilitate Raising of Capital</div><div class="cd">Helps companies attract investors and access funds more easily.</div></div>
+    <div class="ic"><div class="cn">04</div><div class="ct">Enhance Market Confidence</div><div class="cd">Builds public trust in capital markets and financial systems.</div></div>
+    <div class="ic"><div class="cn">05</div><div class="ct">Assists Management</div><div class="cd">Helps management in planning, control and strategic decisions.</div></div>
+    <div class="ic"><div class="cn">06</div><div class="ct">Helps Govt. in Taxation & Regulation</div><div class="cd">Aids government in tax assessment and policy formulation.</div></div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 2: ANNUAL REPORT ── -->
+<div class="sec" id="s2">
+  <div class="sh"><div class="sn">2</div><div class="st">Annual Report</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>An Annual Report is a <strong>comprehensive document</strong> that publicly traded companies produce and distribute to shareholders at the end of each fiscal year. It provides a summary of financial performance, operations, governance and social responsibility.</p></div>
+
+  <h3 class="sh2">Components of Annual Report</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Chairman's Statement</strong> — Letter from Chairman/CEO outlining strategy, vision and future plans.</div></li>
+    <li><span class="pn">2</span><div><strong>Management Discussion & Analysis (MD&A)</strong> — In-depth analysis of revenue, expenses, profits and cash flow.</div></li>
+    <li><span class="pn">3</span><div><strong>Financial Statements</strong> — Balance Sheet, P&L and Cash Flow Statement as per Schedule III.</div></li>
+    <li><span class="pn">4</span><div><strong>Notes to Financial Statements</strong> — Explanation of accounting policies, estimates and contingencies.</div></li>
+    <li><span class="pn">5</span><div><strong>Auditor's Report</strong> — Independent auditor opinion on true & fair view.</div></li>
+    <li><span class="pn">6</span><div><strong>Corporate Governance Report</strong> — Governance structure, board composition, executive compensation.</div></li>
+    <li><span class="pn">7</span><div><strong>Board of Directors Report</strong> — Business review, financial performance, risk management, future outlook.</div></li>
+    <li><span class="pn">8</span><div><strong>Social Responsibility Section</strong> — Sustainability, community engagement, CSR programmes.</div></li>
+  </ol>
+
+  <h3 class="sh2">Purpose of Annual Report</h3>
+  <div class="cg">
+    <div class="ic"><div class="cn">1</div><div class="ct">Provide Financial Information</div></div>
+    <div class="ic"><div class="cn">2</div><div class="ct">Ensure Accountability</div></div>
+    <div class="ic"><div class="cn">3</div><div class="ct">Support Decision Making</div></div>
+    <div class="ic"><div class="cn">4</div><div class="ct">Marketing of the Company</div></div>
+    <div class="ic"><div class="cn">5</div><div class="ct">Highlight Achievements</div></div>
+    <div class="ic"><div class="cn">6</div><div class="ct">Communicate with Target Audience</div></div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 3: BOARD REPORT ── -->
+<div class="sec" id="s3">
+  <div class="sh"><div class="sn">3</div><div class="st">Board of Directors Report</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>The Board Report is a report prepared by the Board of Directors containing information regarding the <strong>state of affairs</strong> of the company and other prescribed disclosures. It accompanies the Financial Statements.</p></div>
+
+  <h3 class="sh2">Objectives</h3>
+  <ul class="bl">
+    <li>Inform shareholders about company performance</li>
+    <li>Ensure transparency in management activities</li>
+    <li>Fulfil statutory disclosure requirements under Companies Act</li>
+    <li>Explain future plans and risk management strategies</li>
+  </ul>
+
+  <h3 class="sh2">Content of Board Report</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Financial Highlights</strong> — State of the company's affairs and a summary of financial results.</div></li>
+    <li><span class="pn">2</span><div><strong>Dividend & Reserves</strong> — Amount recommended for dividend distribution and amount transferred to reserves.</div></li>
+    <li><span class="pn">3</span><div><strong>Director Responsibility Statement</strong> — Formal declaration confirming accounting standards followed, proper accounting policies applied and adequate internal controls exist.</div></li>
+    <li><span class="pn">4</span><div><strong>Statutory Disclosure</strong> — Details of related party transactions, risk management policies and explanation for negative remarks by auditor.</div></li>
+    <li><span class="pn">5</span><div><strong>CSR Disclosure</strong> — Details of the Corporate Social Responsibility policy and expenditure.</div></li>
+  </ol>
+
+  <h3 class="sh2">Director Responsibility Statement — 6 Declarations</h3>
+  <div class="co cg2"><div class="co-ico">⚖️</div><div>A formal declaration signed by directors confirming all 6 of the following:</div></div>
+  <ol class="pl">
+    <li><span class="pn">1</span><div>Applicable Accounting Standards have been followed</div></li>
+    <li><span class="pn">2</span><div>Accounting policies have been applied consistently</div></li>
+    <li><span class="pn">3</span><div>Proper Accounting Records have been maintained</div></li>
+    <li><span class="pn">4</span><div>Financial Statements give a true and fair view</div></li>
+    <li><span class="pn">5</span><div>Adequate Internal Financial Controls exist</div></li>
+    <li><span class="pn">6</span><div>Accounts are prepared on a Going Concern Basis</div></li>
+  </ol>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 4: XBRL ── -->
+<div class="sec" id="s4">
+  <div class="sh"><div class="sn">4</div><div class="st">XBRL Reporting</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p><strong style="color:var(--gl)">XBRL = eXtensible Business Reporting Language</strong> — a global standard that enables the exchange of financial data in a <strong>machine-readable format</strong>, making it easy for computers to process and analyze financial information.</p></div>
+
+  <h3 class="sh2">Features of XBRL</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Clearly Defined</strong> — Uses standard definitions and rules to clearly describe financial data. Can be expanded and modified when needed.</div></li>
+    <li><span class="pn">2</span><div><strong>Business Rules Validation</strong> — Checks whether reported data follows proper business rules and helps identify errors quickly.</div></li>
+    <li><span class="pn">3</span><div><strong>Multi-lingual Support</strong> — Allows taxonomy labels in multiple languages for different regions.</div></li>
+    <li><span class="pn">4</span><div><strong>Strong Software Support</strong> — Works with different accounting and reporting software, making it useful for many organisations.</div></li>
+  </ol>
+
+  <h3 class="sh2">Advantages</h3>
+  <div class="cg">
+    <div class="ic"><div class="cn">1</div><div class="ct">Cost & Time Saving</div><div class="cd">Reduces manual data entry and processing time significantly.</div></div>
+    <div class="ic"><div class="cn">2</div><div class="ct">Improved Reporting Quality</div><div class="cd">Standardised tags ensure consistent, high-quality reports.</div></div>
+    <div class="ic"><div class="cn">3</div><div class="ct">More Accurate & Efficient</div><div class="cd">Machine-readable format reduces errors and improves efficiency.</div></div>
+    <div class="ic"><div class="cn">4</div><div class="ct">Transparency</div><div class="cd">Easier access and analysis for regulators and investors.</div></div>
+    <div class="ic"><div class="cn">5</div><div class="ct">Global Comparability</div><div class="cd">Enables cross-border comparison of financial information.</div></div>
+  </div>
+
+  <h3 class="sh2">Uses of XBRL</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+    <span class="qr">1. Financial Reporting</span>
+    <span class="qr">2. Regulatory Compliance</span>
+    <span class="qr">3. Investor Analysis</span>
+    <span class="qr">4. Risk Management</span>
+    <span class="qr">5. Efficiency & Transparency</span>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 5: NOTES TO ACCOUNT ── -->
+<div class="sec" id="s5">
+  <div class="sh"><div class="sn">5</div><div class="st">Notes to Account</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>Notes to Accounts are <strong>explanatory statements</strong> attached to Financial Statements providing additional details and disclosure regarding accounting items.</p></div>
+
+  <h3 class="sh2">Drafting of Notes — 7 Steps</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div>Understand the requirement to ensure compliance</div></li>
+    <li><span class="pn">2</span><div>Use clear and concise language for readability</div></li>
+    <li><span class="pn">3</span><div>Organise logically, grouping related information together</div></li>
+    <li><span class="pn">4</span><div>Provide relevant information — significant accounting policies, transactions and key estimates</div></li>
+    <li><span class="pn">5</span><div>Use supporting data and examples</div></li>
+    <li><span class="pn">6</span><div>Ensure accuracy and base estimates on reliable evidence</div></li>
+    <li><span class="pn">7</span><div>Review and revise to guarantee completeness and compliance</div></li>
+  </ol>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 6: SUSTAINABILITY ── -->
+<div class="sec" id="s6">
+  <div class="sh"><div class="sn">6</div><div class="st">Sustainability Reporting</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>Sustainability Reporting is the practice of <strong>measuring, disclosing and being accountable</strong> for an organisation's economic, environmental and social impact.</p></div>
+
+  <h3 class="sh2">Importance</h3>
+  <ul class="bl">
+    <li>Improves transparency and accountability about impact on environment and society</li>
+    <li>Enhances reputation and stakeholder trust</li>
+    <li>Drives sustainability performance by setting improvement goals</li>
+    <li>Ensures legal compliance</li>
+  </ul>
+
+  <h3 class="sh2">Seven Principles of Sustainability Reporting</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Materiality</strong> — Report on issues relevant and important to stakeholders</div></li>
+    <li><span class="pn">2</span><div><strong>Stakeholder Inclusiveness</strong> — Engage with a range of stakeholders and understand their concerns</div></li>
+    <li><span class="pn">3</span><div><strong>Sustainability Context</strong> — Provide understanding of environmental, social and economic context</div></li>
+    <li><span class="pn">4</span><div><strong>Completeness</strong> — Comprehensively report both positive and negative impact</div></li>
+    <li><span class="pn">5</span><div><strong>Accuracy</strong> — Ensure accuracy and reliability of all sustainability information</div></li>
+    <li><span class="pn">6</span><div><strong>Timeliness</strong> — Report in a timely manner so stakeholders can make informed decisions</div></li>
+    <li><span class="pn">7</span><div><strong>Clarity</strong> — Communicate clearly and concisely</div></li>
+  </ol>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 7: TBL ── -->
+<div class="sec" id="s7">
+  <div class="sh"><div class="sn">7</div><div class="st">Triple Bottom Line (TBL) Reporting</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>TBL is a framework for measuring and reporting an organisation's <strong>social, environmental and financial performance</strong>. It is based on the idea that success should not be measured solely by financial performance but also by impact on society and the environment.</p></div>
+
+  <h3 class="sh2">Three Pillars — The 3 Ps</h3>
+  <div class="pillars">
+    <div class="pil profit"><div class="pil-ico">💰</div><div class="pil-t">Profit</div><div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Economic Performance</div><div class="pil-d">Focuses on company profit and financial growth while following ethical business practices.</div></div>
+    <div class="pil people"><div class="pil-ico">👥</div><div class="pil-t">People</div><div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Social Performance</div><div class="pil-d">Fair wages, safe workplace, fair treatment of suppliers, better service & safety for customers.</div></div>
+    <div class="pil planet"><div class="pil-ico">🌍</div><div class="pil-t">Planet</div><div style="font-size:11px;color:var(--tx3);margin-bottom:6px">Environmental Performance</div><div class="pil-d">Reducing pollution, saving energy, using eco-friendly practices.</div></div>
+  </div>
+
+  <h3 class="sh2">Benefits of TBL</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div>Improved sustainability performance across multiple dimensions</div></li>
+    <li><span class="pn">2</span><div>Enhanced stakeholder engagement</div></li>
+    <li><span class="pn">3</span><div>Increased transparency and accountability</div></li>
+    <li><span class="pn">4</span><div>Improved risk management</div></li>
+    <li><span class="pn">5</span><div>Cost saving and efficiency gains through better resource management</div></li>
+  </ol>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 8: CSR ── -->
+<div class="sec" id="s8">
+  <div class="sh"><div class="sn">8</div><div class="st">CSR Reporting</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>CSR Reporting means reporting the <strong>social, environmental and ethical activities</strong> of a company. It shows how a company works responsibly for society and the environment, apart from earning profits.</p></div>
+
+  <h3 class="sh2">Applicability — Section 135, Companies Act 2013</h3>
+  <div class="co cb"><div class="co-ico">ℹ️</div><div>Company must spend on CSR if in the <strong>preceding year</strong> it had any ONE of the following:</div></div>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Net Worth</strong> of ₹500 Crore or more</div></li>
+    <li><span class="pn">2</span><div><strong>Turnover</strong> of ₹1,000 Crore or more</div></li>
+    <li><span class="pn">3</span><div><strong>Net Profit</strong> of ₹5 Crore or more</div></li>
+  </ol>
+  <div class="fml"><div class="fml-l">Mandatory CSR Spend</div><div class="fml-v">2% of Average Net Profit of Three Preceding Financial Years</div></div>
+  <div class="co cr"><div class="co-ico">⚠️</div><div><strong>Note:</strong> Medical treatment and free education of employees do <strong>NOT</strong> qualify as CSR expenditure.</div></div>
+
+  <h3 class="sh2">CSR Qualifying Activities</h3>
+  <div class="cg">
+    <div class="ic"><div class="cn">1</div><div class="ct">Eradicating Extreme Hunger & Poverty</div></div>
+    <div class="ic"><div class="cn">2</div><div class="ct">Promotion of Education & Healthcare</div></div>
+    <div class="ic"><div class="cn">3</div><div class="ct">Environmental Sustainability</div></div>
+    <div class="ic"><div class="cn">4</div><div class="ct">Contribution to PM Relief Fund</div></div>
+    <div class="ic"><div class="cn">5</div><div class="ct">Promotion of Rural Sports & National Heritage</div></div>
+    <div class="ic"><div class="cn">6</div><div class="ct">Rural Development Projects</div></div>
+  </div>
+
+  <h3 class="sh2">Key Components of CSR</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div><strong>Ethical Business Practice</strong> — Commitment to ethical conduct and legal compliance</div></li>
+    <li><span class="pn">2</span><div><strong>Social & Community Involvement</strong> — Engagement with local communities and charitable contributions</div></li>
+    <li><span class="pn">3</span><div><strong>Employee Well-being</strong> — Ensuring health, safety, diversity and inclusion</div></li>
+    <li><span class="pn">4</span><div><strong>Environmental Stewardship</strong> — Efforts to conserve resources, manage waste and reduce emissions</div></li>
+    <li><span class="pn">5</span><div><strong>Governance & Accountability</strong> — Leadership transparency and governance structure</div></li>
+  </ol>
+</div>
+
+<div class="dv"></div>
+
+<!-- ── SECTION 9: SEGMENT REPORTING ── -->
+<div class="sec" id="s9">
+  <div class="sh"><div class="sn">9</div><div class="st">Segment Reporting (AS-17)</div><span class="badge bn">Notes</span></div>
+  <div class="def"><div class="def-l">📌 Meaning</div><p>When a company does different types of business or operates in different cities/states/countries, it should show the <strong>financial performance of each business segment separately</strong>. This is called Segment Reporting.</p></div>
+
+  <h3 class="sh2">Applicability — AS-17 applies to:</h3>
+  <ul class="bl">
+    <li>Listed enterprises</li>
+    <li>Enterprise in the process of listing</li>
+    <li>Enterprise whose turnover exceeds ₹50 crore in the immediately preceding year</li>
+  </ul>
+  <div class="co cg2"><div class="co-ico">📌</div><div>Small unlisted companies are <strong>NOT</strong> required to follow AS-17.</div></div>
+
+  <h3 class="sh2">Types of Segments</h3>
+  <div class="tabs">
+    <div class="tnav">
+      <button class="tbtn on" onclick="swTab(this,'tb1')">Business Segment</button>
+      <button class="tbtn" onclick="swTab(this,'tb2')">Geographical Segment</button>
+    </div>
+    <div class="tpan on" id="tb1">
+      <p style="font-size:14px;color:var(--tx2);margin-bottom:10px"><strong style="color:var(--tx)">Business Segment</strong> — A separate part of a company that:</p>
+      <ul class="bl"><li>Sells a particular product or service, or a group of related products/services</li><li>Has risk and return different from other business activities of the company</li></ul>
+      <div class="co cb" style="margin-top:10px"><div class="co-ico">💡</div><div><em>Example:</em> A company manufactures — Mobile, TV & Laptop (3 separate business segments)</div></div>
+    </div>
+    <div class="tpan" id="tb2">
+      <p style="font-size:14px;color:var(--tx2);margin-bottom:10px"><strong style="color:var(--tx)">Geographical Segment</strong> — A separate part of a company that operates in a particular geographical area and faces risks/returns different from other areas.</p>
+      <div class="co cb" style="margin-top:10px"><div class="co-ico">💡</div><div><em>Example:</em> A company operates in India, UK, USA etc. Each country = one geographical segment</div></div>
+    </div>
+  </div>
+
+  <h3 class="sh2">Key Definitions</h3>
+
+  <div class="acc">
+    <div class="acc-h" onclick="tAcc(this)"><div class="acc-t">📊 Segment Revenue</div><div class="acc-i">▾</div></div>
+    <div class="acc-b">
+      <p style="font-size:13.5px;color:var(--tx2);margin-bottom:12px">Revenue directly attributable to a segment + revenue that can be allocated on a reasonable basis.</p>
+      <div class="ieg">
+        <ul class="ieb inc"><div class="iel">✅ Include</div><li>Sales Revenue</li><li>Service Revenue</li><li>Inter-Segment Sales</li></ul>
+        <ul class="ieb exc"><div class="iel">❌ Exclude</div><li>Extraordinary Income</li><li>Interest Income</li><li>Dividend Income</li><li>Gain on Sale of Investment</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-h" onclick="tAcc(this)"><div class="acc-t">📊 Segment Expense</div><div class="acc-i">▾</div></div>
+    <div class="acc-b">
+      <p style="font-size:13.5px;color:var(--tx2);margin-bottom:12px">Expense directly attributable to a segment + expense allocated on a reasonable basis.</p>
+      <div class="ieg">
+        <ul class="ieb inc"><div class="iel">✅ Include</div><li>Direct Expense</li><li>Allocated Common Expenses</li></ul>
+        <ul class="ieb exc"><div class="iel">❌ Exclude</div><li>Extraordinary Losses</li><li>Interest Expense</li><li>Income Tax Expense</li><li>General Corporate Expense</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-h" onclick="tAcc(this)"><div class="acc-t">📊 Segment Result · Assets · Liabilities</div><div class="acc-i">▾</div></div>
+    <div class="acc-b">
+      <div class="fml" style="margin-bottom:14px"><div class="fml-l">Segment Result</div><div class="fml-v">Segment Revenue − Segment Expense</div></div>
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:14px">Includes profit & loss of a segment <strong>before</strong> Interest, Dividend and Tax.</p>
+      <h4 class="sh3">Segment Assets — Includes TR, Inventories, PPE, Intangible Assets · Excludes Income Tax Assets, Unallocated Corporate Assets</h4>
+      <h4 class="sh3">Segment Liabilities — Includes TP, Accrued Expenses, Advances from Customers · Excludes Income Tax Liabilities, Borrowings</h4>
+    </div>
+  </div>
+
+  <h3 class="sh2">Reportable Segment — 3 Tests (Any ONE must be satisfied)</h3>
+  <div class="tg3">
+    <div class="tcard"><div class="tc-n">T1</div><div class="tc-t">Revenue Test</div><div class="tc-d">Segment Revenue ≥</div><div class="tc-v">10%</div><div style="font-size:11px;color:var(--tx3);margin-top:3px">of Total Revenue of all segments</div></div>
+    <div class="tcard"><div class="tc-n">T2</div><div class="tc-t">Result Test</div><div class="tc-d">Segment Result ≥</div><div class="tc-v">10%</div><div style="font-size:11px;color:var(--tx3);margin-top:3px">of Greater of (Total Profit | Total Loss)</div></div>
+    <div class="tcard"><div class="tc-n">T3</div><div class="tc-t">Asset Test</div><div class="tc-d">Segment Assets ≥</div><div class="tc-v">10%</div><div style="font-size:11px;color:var(--tx3);margin-top:3px">of Total Segment Assets</div></div>
+  </div>
+  <div class="co cb"><div class="co-ico">⭐</div><div><strong>75% Revenue Rule:</strong> After identifying reportable segments, total external revenue of all reportable segments must be ≥ 75% of enterprise revenue. If not, additional segments should be reported until 75% threshold is achieved.</div></div>
+
+  <h3 class="sh2">Inter-Segment (Inter-Company) Transfers</h3>
+  <ol class="pl">
+    <li><span class="pn">1</span><div>Inter-segment sales/transfers are <strong>eliminated</strong> while computing total enterprise revenue but are <strong>shown separately</strong> as Segment Revenue</div></li>
+    <li><span class="pn">2</span><div>AS-17 requires the basis of pricing inter-segment transfers (e.g. Cost, Market Price, Negotiated Price) to be disclosed</div></li>
+    <li><span class="pn">3</span><div>Changes in inter-segment transfer pricing policy that have a material effect must be disclosed</div></li>
+    <li><span class="pn">4</span><div>Transfer price should be at arm's length, ideally at Market Price (MP)</div></li>
+    <li><span class="pn">5</span><div>Company has flexibility in choosing the method but cannot use it to manipulate Segment Result without disclosure</div></li>
+  </ol>
+</div>
+
+<!-- ── DIVIDER ── -->
+<div class="dv dv-gold" style="margin:40px 0"></div>
+
+<!-- ── EXAM QUESTIONS ── -->
+<div id="exam-top" style="scroll-margin-top:56px">
+  <div class="exh">
+    <div class="exh-ico">📝</div>
+    <div><h2>Exam Questions</h2><p>B.Com Hons NEP · Corporate Accounting · Delhi University Syllabus</p></div>
+  </div>
+</div>
+
+<!-- Q1 -->
+<div class="ec sec" id="q1">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q1</div>
+    <div><div class="et">State the provisions of Companies Act regarding the utilisation of Securities Premium Reserve.</div><div class="es">Section 52 · Companies Act 2013</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="def"><div class="def-l">📌 Meaning</div><p>When shares are issued above their nominal (face) value, the excess amount is credited to the <strong style="color:var(--gl)">Securities Premium Reserve (SPR)</strong> as per Section 52(1) of Companies Act 2013. It cannot be treated as distributable profit.</p></div>
+    <h3 class="sh2">Uses / Utilisation — Section 52(2)</h3>
+    <div class="co cg2"><div class="co-ico">⚠️</div><div>Securities Premium Reserve can ONLY be applied for the following <strong>5 purposes</strong>:</div></div>
+    <ol class="pl">
+      <li><span class="pn">1</span><div><strong>Issue of Fully Paid Bonus Shares</strong> — SPR can be used to issue bonus shares to existing members of the company at no cost to them.</div></li>
+      <li><span class="pn">2</span><div><strong>Write off Preliminary Expenses</strong> — Expenses incurred for the formation/incorporation of the company can be written off from SPR.</div></li>
+      <li><span class="pn">3</span><div><strong>Write off Issue Expenses</strong> — Expenses of, or commission paid or discount allowed on, issue of shares or debentures can be written off.</div></li>
+      <li><span class="pn">4</span><div><strong>Premium on Redemption</strong> — Premium payable on redemption of redeemable preference shares or debentures can be charged to SPR.</div></li>
+      <li><span class="pn">5</span><div><strong>Buy-back of Own Shares</strong> — Used to purchase the company's own shares under Section 68 (buy-back).</div></li>
+    </ol>
+    <div class="co cr"><div class="co-ico">❌</div><div><strong>Cannot be used for:</strong> Distribution as dividend · Writing off general business losses · Meeting operating expenses · Any purpose not listed under Section 52(2)</div></div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="ec sec" id="q2">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q2</div>
+    <div><div class="et">Distinguish between Bonus Shares and Rights Shares.</div><div class="es">Comparative Analysis · Corporate Accounting</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="tw">
+      <table>
+        <thead><tr><th>Basis</th><th>Bonus Shares</th><th>Rights Shares</th></tr></thead>
+        <tbody>
+          <tr><td>Meaning</td><td>Free shares issued to existing shareholders from accumulated reserves</td><td>Shares offered to existing shareholders at discounted/preferential price before public</td></tr>
+          <tr><td>Cost to Shareholder</td><td>Nil — no payment required</td><td>Paid at a discounted price</td></tr>
+          <tr><td>Source</td><td>Free reserves, Securities Premium, or Capital Redemption Reserve</td><td>Fresh issue of shares to raise new capital</td></tr>
+          <tr><td>Purpose</td><td>Capitalise accumulated profits/reserves</td><td>Raise fresh capital for company</td></tr>
+          <tr><td>Effect on Reserves</td><td>Reduces free reserves; increases paid-up share capital</td><td>No effect on reserves; increases cash inflow</td></tr>
+          <tr><td>Effect on Share Capital</td><td>Increases paid-up capital without cash inflow</td><td>Increases paid-up capital with cash inflow</td></tr>
+          <tr><td>Renunciation</td><td>Cannot be renounced/transferred</td><td>Can be renounced (right can be sold)</td></tr>
+          <tr><td>Regulatory Framework</td><td>SEBI (ICDR) Regulations + Companies Act</td><td>SEBI (ICDR) Regulations 2018</td></tr>
+          <tr><td>Minimum Subscription</td><td>Not applicable</td><td>Company can proceed if 90% subscription received</td></tr>
+          <tr><td>Revaluation Reserves</td><td>Cannot be issued from revaluation reserves</td><td>Not applicable</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="ec sec" id="q3">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q3</div>
+    <div><div class="et">Explain SEBI guidelines relating to Bonus Issue.</div><div class="es">SEBI (ICDR) Regulations 2018 · Bonus Issue Rules</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="def"><div class="def-l">📌 Bonus Issue</div><p>A bonus issue is when a company issues <strong>additional free shares</strong> to existing shareholders from accumulated profits/reserves, without receiving any payment from shareholders.</p></div>
+    <h3 class="sh2">SEBI Guidelines / Conditions for Bonus Issue</h3>
+    <ol class="pl">
+      <li><span class="pn">1</span><div><strong>Source of Bonus Shares</strong> — Bonus shares can only be issued from <strong>free reserves, Securities Premium Account, or CRR</strong>. <span style="color:var(--red)"><strong>Cannot be issued from Revaluation Reserves.</strong></span></div></li>
+      <li><span class="pn">2</span><div><strong>Irrevocable Once Announced</strong> — Once bonus issue is announced by the Board, it <strong>cannot be withdrawn</strong> under any circumstances.</div></li>
+      <li><span class="pn">3</span><div><strong>No Default</strong> — No bonus issue if the company is in default on: repayment of fixed deposits, interest on debentures/loans, preference dividends, or any statutory dues.</div></li>
+      <li><span class="pn">4</span><div><strong>Articles Must Authorise</strong> — Articles of Association must authorise bonus issue. If not, general meeting required to amend first.</div></li>
+      <li><span class="pn">5</span><div><strong>Fully Paid Shares Only</strong> — Bonus shares can only be issued in <strong>fully paid-up form</strong>. Partly paid shares cannot receive bonus.</div></li>
+      <li><span class="pn">6</span><div><strong>Implementation Timeline</strong>:
+        <ul class="bl" style="margin-top:7px"><li>Without shareholder approval: implement within <strong>15 days</strong> of board approval</li><li>With shareholder approval required: implement within <strong>60 days</strong> of board meeting date</li></ul>
+      </div></li>
+      <li><span class="pn">7</span><div><strong>No Pending Issue</strong> — No pending rights issue / public issue / preferential allotment at the time of bonus announcement.</div></li>
+      <li><span class="pn">8</span><div><strong>Disclosure in Balance Sheet</strong> — Amount of increase in subscribed and paid-up capital must be shown in the next Balance Sheet prepared after allotment.</div></li>
+      <li><span class="pn">9</span><div><strong>SEBI Compliance</strong> — Company must comply with all listing agreement conditions and SEBI (ICDR) Regulations 2018.</div></li>
+    </ol>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="ec sec" id="q4">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q4</div>
+    <div><div class="et">Explain the provisions of Companies Act 2013 regarding the issue of Redeemable Preference Shares.</div><div class="es">Section 55 · Companies Act 2013</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="def"><div class="def-l">📌 Meaning</div><p><strong>Redeemable Preference Shares</strong> are preference shares that are repaid (redeemed) by the company at a predetermined future date or at the company's option, as per the terms of issue.</p></div>
+    <h3 class="sh2">Provisions under Section 55</h3>
+    <ol class="pl">
+      <li><span class="pn">1</span><div><strong>Authorization Required</strong> — Company may issue redeemable preference shares only if authorised by its <strong>Articles of Association</strong>.</div></li>
+      <li><span class="pn">2</span><div><strong>Maximum Period — 20 Years</strong> — Cannot be redeemed after <strong>20 years</strong> from date of issue. <em>Exception: Infrastructure companies may issue for up to 30 years for project-specific purposes, subject to minimum 10% p.a. redemption.</em></div></li>
+      <li><span class="pn">3</span><div><strong>Fully Paid Up Before Redemption</strong> — Preference shares must be <strong>fully paid up</strong> before they can be redeemed.</div></li>
+      <li><span class="pn">4</span><div><strong>Sources of Redemption</strong> — Can only be redeemed from:
+        <ul class="bl" style="margin-top:7px"><li>Profits available for dividend (distributable profits)</li><li>Proceeds of a fresh issue of shares made for the purpose of redemption</li></ul>
+      </div></li>
+      <li><span class="pn">5</span><div><strong>Capital Redemption Reserve (CRR)</strong> — When redeemed out of <em>profits</em> (not from fresh issue proceeds), a sum equal to the <strong>nominal value</strong> of shares redeemed must be transferred to CRR from profits.</div></li>
+      <li><span class="pn">6</span><div><strong>Premium on Redemption</strong> — Premium payable on redemption is charged to: Securities Premium Reserve (if available) → P&L Account (if SPR insufficient).</div></li>
+      <li><span class="pn">7</span><div><strong>CRR Treated as Share Capital</strong> — Capital Redemption Reserve is treated as paid-up share capital. It can only be used for issuing <strong>fully paid bonus shares</strong>. Cannot be distributed as dividend.</div></li>
+    </ol>
+    <div class="fml"><div class="fml-l">Key Rule to Remember</div><div class="fml-v">Redeemed from Profits → Create CRR of equal nominal value<br><span style="font-size:13px;font-weight:400;color:var(--tx3)">Redeemed from Fresh Issue → No CRR required</span></div></div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="ec sec" id="q5">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q5</div>
+    <div><div class="et">Enumerate the sources of funds for Buy-back of Shares. Also explain briefly the conditions for Buy-back of Shares.</div><div class="es">Section 68 · Companies Act 2013</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="def"><div class="def-l">📌 Meaning</div><p><strong>Buy-back of Shares</strong> means a company purchases its own shares from existing shareholders, thereby reducing the outstanding share capital. This returns surplus cash to shareholders and can improve EPS.</p></div>
+
+    <h3 class="sh2">Sources of Funds — Section 68(1)</h3>
+    <ol class="pl">
+      <li><span class="pn">1</span><div><strong>Free Reserves</strong> — Includes General Reserve, Profit & Loss balance (credit side), and any other distributable reserves.</div></li>
+      <li><span class="pn">2</span><div><strong>Securities Premium Account</strong> — Specifically included as a valid source for buy-back.</div></li>
+      <li><span class="pn">3</span><div><strong>Proceeds of Fresh Issue of Shares</strong> — Proceeds from a fresh issue of shares or specified securities made specifically for buy-back purposes.</div></li>
+    </ol>
+    <div class="co cr"><div class="co-ico">❌</div><div><strong>Cannot use:</strong> Proceeds of the same kind of shares being bought back · Proceeds from fresh issue of debentures or bonds</div></div>
+
+    <h3 class="sh2">Conditions for Buy-back — Section 68(2)</h3>
+    <ol class="pl">
+      <li><span class="pn">1</span><div><strong>Authorised by Articles</strong> — Must be authorised by Articles of Association.</div></li>
+      <li><span class="pn">2</span><div><strong>Resolution Required</strong>:
+        <ul class="bl" style="margin-top:7px"><li><strong>Board Resolution</strong> — for buy-back up to <strong>10%</strong> of total paid-up equity capital + free reserves</li><li><strong>Special Resolution</strong> — for buy-back above 10% (up to the 25% maximum)</li></ul>
+      </div></li>
+      <li><span class="pn">3</span><div><strong>25% Annual Limit</strong> — Buy-back in any financial year shall not exceed <strong>25%</strong> of total paid-up equity capital and free reserves.</div></li>
+      <li><span class="pn">4</span><div><strong>Debt-Equity Ratio</strong> — Post buy-back, ratio of total secured & unsecured debt to paid-up capital + free reserves must not exceed <strong>2:1</strong>.</div></li>
+      <li><span class="pn">5</span><div><strong>Fully Paid Shares Only</strong> — All shares proposed for buy-back must be <strong>fully paid up</strong>.</div></li>
+      <li><span class="pn">6</span><div><strong>No Default</strong> — Company must NOT be in default in repayment of deposits, debenture interest, preference dividends, or statutory dues at the time of buy-back.</div></li>
+      <li><span class="pn">7</span><div><strong>Cooling Period of 1 Year</strong> — No new buy-back offer within <strong>1 year</strong> from the closure of the previous buy-back offer.</div></li>
+      <li><span class="pn">8</span><div><strong>Time Limit for Completion</strong> — Buy-back must be completed within <strong>1 year</strong> from the date of passing of the special/board resolution.</div></li>
+    </ol>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="ec sec" id="q6">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q6</div>
+    <div><div class="et">Write a short note on: (a) CSR Reporting (b) Triple Bottom Line (c) Sustainability Reporting (d) XBRL Reporting</div><div class="es">Short Notes — All covered in Unit 5</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="co cgr"><div class="co-ico">✅</div><div>All four topics are covered in full detail in Sections 4, 6, 7, and 8 of these notes. Here is an exam-ready quick summary for each:</div></div>
+
+    <h4 class="sh3">a. CSR Reporting</h4>
+    <p style="font-size:13.5px;color:var(--tx2);margin-bottom:16px">CSR Reporting means disclosing a company's social, environmental and ethical activities. Under <strong>Section 135</strong> of Companies Act 2013, companies with Net Worth ≥ ₹500 Cr / Turnover ≥ ₹1000 Cr / Net Profit ≥ ₹5 Cr must spend <strong>2% of average net profit of 3 preceding years</strong> on CSR. Qualifying activities: eradicating poverty, education, healthcare, environmental sustainability, PM Relief Fund, etc. Key components include ethical practice, employee well-being, environmental stewardship and governance accountability.</p>
+
+    <h4 class="sh3">b. Triple Bottom Line (TBL) Reporting</h4>
+    <p style="font-size:13.5px;color:var(--tx2);margin-bottom:16px">TBL is a framework measuring performance on three dimensions: <strong style="color:var(--gl)">Profit</strong> (Economic — financial performance + ethical business), <strong style="color:var(--blu)">People</strong> (Social — employees, customers, suppliers, community), and <strong style="color:var(--grn)">Planet</strong> (Environmental — reducing pollution, saving energy, eco-friendly practices). It moves beyond financial-only metrics and promotes responsible, sustainable business. Benefits include improved sustainability performance, enhanced stakeholder engagement and better risk management.</p>
+
+    <h4 class="sh3">c. Sustainability Reporting</h4>
+    <p style="font-size:13.5px;color:var(--tx2);margin-bottom:16px">The practice of measuring and disclosing an organisation's economic, environmental and social impact. Governed by <strong>7 principles</strong>: (1) Materiality (2) Stakeholder Inclusiveness (3) Sustainability Context (4) Completeness (5) Accuracy (6) Timeliness (7) Clarity. Importance: improves transparency, enhances reputation, drives sustainability goals and ensures legal compliance.</p>
+
+    <h4 class="sh3">d. XBRL Reporting</h4>
+    <p style="font-size:13.5px;color:var(--tx2)">XBRL (<strong>eXtensible Business Reporting Language</strong>) is a global standard enabling exchange of financial data in <strong>machine-readable format</strong>. Features: clearly defined taxonomy, business rules validation, multi-lingual support, strong software compatibility. Advantages: cost & time saving, improved reporting quality, accuracy, transparency and global comparability. Uses: financial reporting, regulatory compliance, investor analysis, risk management, efficiency.</p>
+  </div>
+</div>
+
+<!-- Q7 -->
+<div class="ec sec" id="q7">
+  <div class="ec-h" onclick="tExam(this)">
+    <div class="eq">Q7</div>
+    <div><div class="et">Differentiate between Financial Statements and Annual Report.</div><div class="es">Comparative Analysis · Corporate Reporting</div></div>
+    <div class="etog">▾</div>
+  </div>
+  <div class="eb">
+    <div class="tw">
+      <table>
+        <thead><tr><th>Basis</th><th>Financial Statements</th><th>Annual Report</th></tr></thead>
+        <tbody>
+          <tr><td>Meaning</td><td>Formal records showing financial performance and position of a company</td><td>Comprehensive yearly document covering financial and non-financial information sent to shareholders</td></tr>
+          <tr><td>Scope</td><td>Narrow — limited to financial data only</td><td>Broad — financial + strategic + governance + CSR information</td></tr>
+          <tr><td>Components</td><td>Balance Sheet, P&L, Cash Flow, Changes in Equity, Notes to Accounts</td><td>All financial statements + Chairman's Letter, MD&A, Board Report, Auditor's Report, Corporate Governance, CSR</td></tr>
+          <tr><td>Nature</td><td>Mandatory statutory document</td><td>Statutory + voluntary/additional disclosure document</td></tr>
+          <tr><td>Prepared by</td><td>Accountants / Finance team per Companies Act and Ind AS</td><td>Management (with auditors, legal team) for all stakeholders</td></tr>
+          <tr><td>Purpose</td><td>Financial reporting compliance; show financial position and performance</td><td>Comprehensive communication with shareholders, investors, public and regulators</td></tr>
+          <tr><td>Target Audience</td><td>Primarily auditors, tax authorities, regulators</td><td>Shareholders, investors, employees, customers, government, public</td></tr>
+          <tr><td>Non-financial Info</td><td>Not included</td><td>Included (strategy, governance, CSR, sustainability goals)</td></tr>
+          <tr><td>Regulation</td><td>Companies Act 2013, Schedule III, Ind AS / AS</td><td>Companies Act 2013, SEBI LODR, Stock Exchange Listing Requirements</td></tr>
+          <tr><td>Format</td><td>Strictly prescribed — Schedule III format</td><td>Flexible — varies by company, industry, size</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co cg2"><div class="co-ico">💡</div><div><strong>Key Takeaway:</strong> Financial Statements are a <em>subset</em> of the Annual Report. Every Annual Report contains Financial Statements, but Financial Statements alone do not constitute an Annual Report.</div></div>
+  </div>
+</div>
+
+</div><!-- end .cw -->
+</main>
+
+<!-- FLOATING ACTIONS -->
+<div id="fab">
+  <div class="fb" title="Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+  <div class="fb" title="Print / Save PDF" onclick="window.print()">🖨</div>
+  <div class="fb" title="Expand All Exam Q's" onclick="expandAll()">⊞</div>
+</div>
+
+<script>
+// PROGRESS BAR
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+});
+
+// SIDEBAR
+function tSB(){document.getElementById('sb').classList.toggle('on');document.getElementById('ov').classList.toggle('on')}
+function cSB(){document.getElementById('sb').classList.remove('on');document.getElementById('ov').classList.remove('on')}
+
+// ACTIVE NAV
+const allSecs=document.querySelectorAll('[id]');
+const allNL=document.querySelectorAll('.nl');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      allNL.forEach(l=>l.classList.remove('active'));
+      const a=document.querySelector(`.nl[href="#${e.target.id}"]`);
+      if(a){a.classList.add('active');a.scrollIntoView({block:'nearest'})}
+    }
+  });
+},{threshold:0.25,rootMargin:'-56px 0px -35% 0px'});
+allSecs.forEach(s=>obs.observe(s));
+
+// ACCORDION
+function tAcc(h){
+  const b=h.nextElementSibling,open=h.classList.contains('on');
+  document.querySelectorAll('.acc-h.on').forEach(x=>{x.classList.remove('on');x.nextElementSibling.classList.remove('on')});
+  if(!open){h.classList.add('on');b.classList.add('on')}
+}
+
+// EXAM CARD TOGGLE
+function tExam(h){
+  const b=h.nextElementSibling;
+  h.classList.toggle('on');b.classList.toggle('on');
+}
+
+// EXPAND ALL EXAM CARDS
+function expandAll(){
+  document.querySelectorAll('.ec-h').forEach(h=>{
+    h.classList.add('on');
+    h.nextElementSibling.classList.add('on');
+  });
+}
+
+// TABS
+function swTab(btn,panId){
+  const tnav=btn.closest('.tnav'),tabs=tnav.closest('.tabs');
+  tnav.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  tabs.querySelectorAll('.tpan').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(panId).classList.add('on');
+}
+
+// SEARCH
+document.getElementById('si').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim();
+  document.querySelectorAll('.nl').forEach(l=>{
+    l.style.display=(!q||l.textContent.toLowerCase().includes(q))?'':'none';
+  });
+});
+
+// STAGGER ANIMATIONS
+document.querySelectorAll('.sec').forEach((el,i)=>{el.style.animationDelay=(i*0.04)+'s'});
+
+// KEYBOARD
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cSB()});
+</script>
+</body>
+</html>
